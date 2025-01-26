@@ -5,7 +5,7 @@ let isConnected: boolean = false
 export const connectToDatabse = async () => {
 	mongoose.set('strictQuery', true)
 
-	if (!process.env.MONGO_URL) {
+	if (!process.env.MONGO_URI) {
 		return console.error('MONGO_URL is not defined')
 	}
 
@@ -19,7 +19,7 @@ export const connectToDatabse = async () => {
 			autoCreate: true
 		}
 
-		await mongoose.connect(process.env.MONGO_URL, options)
+		await mongoose.connect(process.env.MONGO_URI, options)
 		isConnected = true
 		console.log('Connected to database')
 	} catch (error) {

@@ -1,5 +1,5 @@
 import useLoginModal from '@/hooks/useLoginModal'
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import Modal from '../ui/modal'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '../ui/form'
 import { Input } from '../ui/input'
@@ -9,8 +9,13 @@ import * as z from "zod"
 import { loginSchema } from '@/lib/validation'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useRegisterModal from '@/hooks/useRegisterModal'
+import axios from 'axios'
+import AlertError from '../alert-error/alert-error'
 
 export default function LoginModal() {
+  const [error, setError] = useState("")
+
+
   const loginModal = useLoginModal()
   const registerModal = useRegisterModal()
 
@@ -27,8 +32,19 @@ export default function LoginModal() {
     }
   })
 
-  function onSubmit(values: z.infer<typeof loginSchema>) {
-    console.log(values)
+  async function onSubmit(values: z.infer<typeof loginSchema>) {
+    try {
+      const { data } = await axios.post("/api/auth/login", values)
+      if (data.success) {
+        loginModal.onClose()
+      }
+    } catch (error: any) {
+      if (error.response.data.error) {
+        setError(error.response.data.error)
+      } else {
+        setError("Something went wrong. Please try again later")
+      }
+    }
   }
 
   const { isSubmitting } = form.formState
@@ -36,6 +52,9 @@ export default function LoginModal() {
   const bodyContent =
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 px-12">
+        {error && (
+          <AlertError error={error} />
+        )}
         <FormField
           control={form.control}
           name="email"
@@ -61,7 +80,7 @@ export default function LoginModal() {
           )}
         />
         <Button
-          label={"Register"}
+          label={"Login"}
           type="submit"
           secondary
           fullWidth
