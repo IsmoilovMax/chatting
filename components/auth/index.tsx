@@ -10,6 +10,7 @@ import useRegisterModal from '@/hooks/useRegisterModal'
 import useLoginModal from '@/hooks/useLoginModal'
 import LoginModal from '../modals/login-modal'
 import RegisterModal from '../modals/register-modal'
+import { signIn } from "next-auth/react"
 
 
 
@@ -51,18 +52,22 @@ const Auth = () => {
                 <div className='w-full md:w-[60%]'>
                     <h2 className='font-bold text-3xl mb-4'>Join today.</h2>
                     <div className='flex flex-col space-y-2'>
-                        <Button label={
-                            <div className='flex gap-2 items-center justify-center'>
-                                <FcGoogle />
-                                SignIn with Google
-                            </div>
-                        } secondary fullWidth />
-                        <Button label={
-                            <div className='flex gap-2 items-center justify-center'>
-                                <FaGithub />
-                                SignIn with github
-                            </div>
-                        } fullWidth secondary />
+                        <Button
+                            onClick={() => signIn("google")}
+                            label={
+                                <div className='flex gap-2 items-center justify-center'>
+                                    <FcGoogle />
+                                    SignIn with Google
+                                </div>
+                            } secondary fullWidth />
+                        <Button
+                            onClick={() => signIn("github")}
+                            label={
+                                <div className='flex gap-2 items-center justify-center' >
+                                    <FaGithub />
+                                    SignIn with github
+                                </div>
+                            } fullWidth secondary />
                         <div className='flex items-center justify-center px-6'>
                             <div className='h-px bg-gray-700 w-1/2' />
                             <p className='mx-4'>or</p>
