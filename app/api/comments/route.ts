@@ -3,7 +3,6 @@ import Post from '@/database/post.model'
 import { authOptions } from '@/lib/auth-options'
 import { connectToDatabse } from '@/lib/mongoose'
 import { getServerSession } from 'next-auth'
-import { trackSynchronousPlatformIOAccessInDev } from 'next/dist/server/app-render/dynamic-rendering'
 import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
