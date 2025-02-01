@@ -1,14 +1,14 @@
-import { ReactElement } from "react"
 import {
     Dialog,
     DialogContent,
 } from "@/components/ui/dialog"
-import { X } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { X } from "lucide-react"
+import { ReactElement } from "react"
 
 interface ModalProps {
     isOpen?: boolean
-    onCLose?: () => void
+    onClose?: () => void
     body?: ReactElement
     footer?: ReactElement
     step?: number
@@ -16,9 +16,9 @@ interface ModalProps {
     isEditing?: boolean
 }
 
-export default function Modal({ body, footer, isOpen, onCLose, step, totalSteps, isEditing }: ModalProps) {
+export default function Modal({ body, footer, isOpen, onClose, step, totalSteps, isEditing }: ModalProps) {
     return (
-        <Dialog open={isOpen} onOpenChange={onCLose}>
+        <Dialog open={isOpen} onOpenChange={onClose}>
             <DialogContent
                 className={cn(
                     "bg-black p-1",
@@ -28,7 +28,7 @@ export default function Modal({ body, footer, isOpen, onCLose, step, totalSteps,
             >
                 <div className="flex items-center gap-6">
                     <button className="p-1 border-0 text-white hover:opacity-70 transition w-fit">
-                        <X size={28} onClick={onCLose} />
+                        <X size={28} onClick={onClose} />
                     </button>
                     {step && totalSteps && (
                         <div className="text-xl font-bold">Step {step} of {totalSteps}</div>

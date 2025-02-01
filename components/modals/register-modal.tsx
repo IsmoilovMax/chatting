@@ -1,19 +1,17 @@
+import useLoginModal from '@/hooks/useLoginModal'
 import useRegisterModal from '@/hooks/useRegisterModal'
-import React, { Dispatch, SetStateAction, useCallback, useState } from 'react'
-import Modal from '../ui/modal'
-import * as z from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from 'react-hook-form'
 import { registerStep1Schema, registerStep2Schema } from '@/lib/validation'
+import { zodResolver } from "@hookform/resolvers/zod"
+import axios from "axios"
+import { signIn } from 'next-auth/react'
+import { Dispatch, SetStateAction, useCallback, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import * as z from "zod"
+import AlertError from '../alert-error/alert-error'
+import Button from '../ui/button'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '../ui/form'
 import { Input } from '../ui/input'
-import Button from '../ui/button'
-import useLoginModal from '@/hooks/useLoginModal'
-import axios from "axios"
-import { Alert, AlertDescription, AlertTitle } from '../ui/alert'
-import { AlertCircle } from 'lucide-react'
-import AlertError from '../alert-error/alert-error'
-import { signIn } from 'next-auth/react'
+import Modal from '../ui/modal'
 
 export default function RegisterModal() {
     const [step, setStep] = useState(1)
@@ -43,7 +41,7 @@ export default function RegisterModal() {
             body={bodyContent}
             footer={footer}
             isOpen={registerModal.isOpen}
-            onCLose={registerModal.onClose}
+            onClose={registerModal.onClose}
             step={step}
             totalSteps={2}
         />
@@ -141,11 +139,11 @@ function RegisterStep2({ data }: { data: { name: string, email: string } }) {
         try {
             const { data: response } = await axios.post("/api/auth/register?step=2", { ...data, ...values })
             if (response.success) {
-               signIn("credentials", {
-                email: data.email,
-                password: values.password
-               }) 
-               registerModal.onClose()
+                signIn("credentials", {
+                    email: data.email,
+                    password: values.password
+                })
+                registerModal.onClose()
             }
         } catch (error: any) {
             if (error.response.data.error) {

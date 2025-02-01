@@ -1,17 +1,17 @@
 import useLoginModal from '@/hooks/useLoginModal'
-import React, { useCallback, useState } from 'react'
-import Modal from '../ui/modal'
-import { Form, FormControl, FormField, FormItem, FormMessage } from '../ui/form'
-import { Input } from '../ui/input'
-import Button from '../ui/button'
-import { useForm } from 'react-hook-form'
-import * as z from "zod"
+import useRegisterModal from '@/hooks/useRegisterModal'
 import { loginSchema } from '@/lib/validation'
 import { zodResolver } from '@hookform/resolvers/zod'
-import useRegisterModal from '@/hooks/useRegisterModal'
 import axios from 'axios'
-import AlertError from '../alert-error/alert-error'
 import { signIn } from 'next-auth/react'
+import { useCallback, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import * as z from "zod"
+import AlertError from '../alert-error/alert-error'
+import Button from '../ui/button'
+import { Form, FormControl, FormField, FormItem, FormMessage } from '../ui/form'
+import { Input } from '../ui/input'
+import Modal from '../ui/modal'
 
 export default function LoginModal() {
   const [error, setError] = useState("")
@@ -107,7 +107,7 @@ export default function LoginModal() {
   return (
     <Modal
       isOpen={loginModal.isOpen}
-      onCLose={loginModal.onClose}
+      onClose={loginModal.onClose}
       body={bodyContent}
       footer={footer}
     />

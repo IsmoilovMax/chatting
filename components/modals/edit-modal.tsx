@@ -7,8 +7,8 @@ import { Loader2 } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import CoverImageUpload from "../shared/cover-image-upload"
-import ProfileImageUpload from "../shared/profile-image-upload"
 import EditForm from "../shared/edit-form"
+import ProfileImageUpload from "../shared/profile-image-upload"
 import Modal from "../ui/modal"
 
 
@@ -68,7 +68,7 @@ const EditModal = ({ user }: Props) => {
         <Modal
             body={bodyContent}
             isOpen={editModal.isOpen}
-            onCLose={editModal.onClose}
+            onClose={editModal.onClose}
             isEditing
         />
     )
