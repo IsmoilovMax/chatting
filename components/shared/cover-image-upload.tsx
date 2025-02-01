@@ -48,7 +48,7 @@ const CoverImageUpload = ({ coverImage, onChange }: Props) => {
                 className: "text-white text-center border-none rounded-md w-full h-[200px] bg-neutral-700 cursor-pointer",
             })}
         >
-            <input {...getInputProps} />
+            <input {...getInputProps()} />
             {image ? (
                 <div className="w-full h-[200px] relative left-0 right-0">
                     <Image

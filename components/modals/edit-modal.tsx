@@ -31,11 +31,11 @@ const EditModal = ({ user }: Props) => {
         setProfileImage(user.profileImage)
     }, [user])
 
-    const handleimageUpload = async (image: string, isProfileImage: boolean) => {
+    const handleImageUpload = async (image: string, isProfileImage: boolean) => {
         try {
             setIsLoading(true)
-            await axios.put(`/api/users/${user._id}`, {
-                [isProfileImage ? "profileImage" : "coverImage"]: image
+            await axios.put(`/api/users/${user._id}?type=updateImage`, {
+                [isProfileImage ? "profileImage" : "coverImage"]: image,
             })
             router.refresh()
             setIsLoading(false)
@@ -53,11 +53,11 @@ const EditModal = ({ user }: Props) => {
             )}
             <CoverImageUpload
                 coverImage={coverImage}
-                onChange={(image) => handleimageUpload(image, false)}
+                onChange={(image) => handleImageUpload(image, false)}
             />
             <ProfileImageUpload
                 profileImage={profileImage}
-                onChange={(image) => handleimageUpload(image, true)}
+                onChange={(image) => handleImageUpload(image, true)}
             />
 
             <EditForm user={user} />

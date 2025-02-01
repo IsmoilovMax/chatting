@@ -1,3 +1,5 @@
+"use client"
+
 import useEditModal from "@/hooks/useEditModal"
 import { cn } from "@/lib/utils"
 import { IUser } from "@/types"
@@ -14,12 +16,9 @@ import Button from "../ui/button"
 import Modal from "../ui/modal"
 
 
-interface Props {
-    user: IUser,
-    userId: string
-}
 
-const ProfileBio = ({ user, userId }: Props) => {
+
+const ProfileBio = ({ user, userId }: { user: IUser; userId: string }) => {
     const [isLoading, setIsLoading] = useState(false)
     const [open, setOpen] = useState(false)
     const [following, setFollowing] = useState<IUser[]>([])

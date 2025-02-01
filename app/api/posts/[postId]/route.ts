@@ -11,7 +11,7 @@ export async function GET(req: Request, route: { params: { postId: string } }) {
 		const post = await Post.findById(postId).populate({
 			path: 'user',
 			model: User,
-			select: 'name email profileImage _id username'
+			select: 'name email  _id username'
 		})
 
 		return NextResponse.json(post)
