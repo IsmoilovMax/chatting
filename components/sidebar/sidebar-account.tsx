@@ -35,13 +35,13 @@ function SidebarAccount({ user }: Props) {
                     <div className='flex justify-between items-center gap-2'>
                         <div className='flex gap-2 items-center'>
                             <Avatar>
-                                <AvatarImage src={user?.profileImage} />
+                                <AvatarImage src={user?.profileImage} style={{width: "55px"}} />
                                 <AvatarFallback>{user?.name[0]}</AvatarFallback>
                             </Avatar>
                             <div className='flex flex-col items-start'>
                                 <p>{user?.name}</p>
                                 {user?.username ? (
-                                    <p className='opacity-40'>{user?.username}</p>
+                                    <p className='opacity-40'>@{user?.username}</p>
                                 ) : (
                                     <p className='opacity-40'>Manage account</p>
                                 )}

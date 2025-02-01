@@ -71,7 +71,6 @@ const Page = ({ params }: { params: { postId: string } }) => {
                                 <AvatarImage src={post?.user?.profileImage} />
                                 <AvatarFallback>{post?.user?.name[0]}</AvatarFallback>
                             </Avatar>
-
                             <div>
                                 <div className="flex flex-row items-center gap-2">
                                     <p className="text-white font-semibold cursor-pointer hover:underline">

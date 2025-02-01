@@ -22,6 +22,8 @@ export async function DELETE(req: Request) {
 		const { postId, userId } = await req.json()
 
 		const post = await Post.findByIdAndUpdate(postId, { $pull: { likes: userId } }, { new: true })
+
+		return NextResponse.json({ success: true })
 	} catch (error) {
 		const result = error as Error
 		return NextResponse.json({ error: result.message }, { status: 400 })

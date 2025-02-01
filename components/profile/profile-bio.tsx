@@ -6,6 +6,8 @@ import Button from "../ui/button"
 import { IoLocationSharp } from "react-icons/io5"
 import { BiCalendar } from "react-icons/bi"
 import { formatDistanceToNowStrict } from "date-fns"
+import useEditModal from "@/hooks/useEditModal"
+import EditModal from "../modals/edit-modal"
 
 
 interface Props {
@@ -15,7 +17,7 @@ interface Props {
 
 const ProfileBio = ({ user, userId }: Props) => {
     const [isLoading, setIsLoading] = useState(false)
-
+    const editModal = useEditModal()
     const router = useRouter()
 
     const onFollow = async () => {
@@ -50,10 +52,15 @@ const ProfileBio = ({ user, userId }: Props) => {
 
     return (
         <>
+            <EditModal user={user}/>
             <div className="border-b-[1px] border-neutral-800 pb-4">
                 <div className="flex justify-end p-2">
                     {userId === user._id ? (
-                        <Button label={"Edit profile"} secondary />
+                        <Button 
+                            label={"Edit profile"} 
+                            secondary 
+                            onClick={() => editModal.onOpen()}
+                        />
                     ) : user.isFollowing ? (
                         <Button
                             label={"Unfollow"}

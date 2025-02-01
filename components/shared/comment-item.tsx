@@ -75,59 +75,58 @@ const CommentItem = ({ comment, comments, setComments, user }: Props) => {
         }
     }
 
-    return (
-        <div className="border-b-[1px] relative border-neutral-800 p-5 cursor-pointer hover:bg-neutral-900 transition">
-            {isLoading && (
-                <div className="absolute inset-0 w-full h-full bg-black opacity-50">
-                    <div className="flex justify-center items-center h-full">
-                        <Loader2 className="animate-spin text-sky-500" />
-                    </div>
+    return (<div className="border-b-[1px] relative border-neutral-800 p-5 cursor-pointer hover:bg-neutral-900 transition">
+        {isLoading && (
+            <div className="absolute inset-0 w-full h-full bg-black opacity-50">
+                <div className="flex justify-center items-center h-full">
+                    <Loader2 className="animate-spin text-sky-500" />
                 </div>
-            )}
-            <div className="flex flex-row items-center gap-3">
-                <Avatar>
-                    <AvatarImage src={comment?.user?.profileImage} />
-                    <AvatarFallback>{comment?.user?.name[0]}</AvatarFallback>
-                </Avatar>
-
-                <div>
-                    <div className="flex flex-row items-center gap-2">
-                        <p className="text-white font-semibold cursor-pointer hover:underline">
-                            {comment?.user?.name}
-                        </p>
-                        <span className="text-neutral-500 cursor-pointer hover:underline hidden md:block">
-                            {comment && comment?.user?.username
-                                ? `@${sliceText(comment?.user?.username, 20)}`
-                                : comment && sliceText(comment?.user?.email, 20)
-                            }
-                        </span>
-                        <span className="text-neutral-500 text-sm">
-                            {comment && comment?.createdAt && formatDistanceToNowStrict(new Date(comment?.createdAt))}
-                        </span>
+            </div>
+        )}
+        <div className="flex flex-row items-center gap-3">
+            <div>
+            <Avatar>
+                <AvatarImage src={comment?.user.profileImage} style={{borderRadius: "50%", width: "55px"}} />
+                <AvatarFallback>{comment?.user.name[0]}</AvatarFallback>
+            </Avatar>
+            </div>
+            <div>
+                <div className="flex flex-row items-center gap-2">
+                    <p className="text-white font-semibold cursor-pointer hover:underline">
+                        {comment?.user.name}
+                    </p>
+                    <span className="text-neutral-500 cursor-pointer hover:underline hidden md:block">
+                        {comment && comment?.user.username
+                            ? `@${sliceText(comment.user.username, 20)}`
+                            : comment && sliceText(comment.user.email, 20)}
+                    </span>
+                    <span className="text-neutral-500 text-sm">
+                        {comment &&
+                            comment.createdAt &&
+                            formatDistanceToNowStrict(new Date(comment.createdAt))}
+                    </span>
+                </div>
+                <div className="text-white mt-1">{comment?.body}</div>
+                <div className="flex flex-row items-center mt-3 gap-10">
+                    <div
+                        className={`flex flex-row items-center text-neutral-500 gap-2 cursor-pointer transition hover:text-red-500`}
+                        onClick={onLike}
+                    >
+                        <FaHeart size={20} color={comment.hasLiked ? "red" : ""} />
+                        <p>{comment.likes || 0}</p>
                     </div>
-                    <div className="text-white mt-1">{comment?.body}</div>
-
-                    <div className="flex flex-row items-center mt-3 gap-10">
+                    {comment.user._id === user._id && (
                         <div
                             className={`flex flex-row items-center text-neutral-500 gap-2 cursor-pointer transition hover:text-red-500`}
-                            onClick={onLike}
+                            onClick={onDelete}
                         >
-                            <FaHeart size={20} color={comment?.hasLiked ? "red" : ""} />
-                            <p>{comment?.likes || 0}</p>
+                            <AiFillDelete size={20} />
                         </div>
-
-                        {comment?.user?._id === user?._id && (
-                            <div
-                                className={`flex flex-row items-center text-neutral-500 gap-2 cursor-pointer transition hover:text-red-500`}
-                                onClick={onDelete}
-                            >
-                                <AiFillDelete size={20} />
-                            </div>
-                        )}
-                    </div>
+                    )}
                 </div>
             </div>
         </div>
+    </div>
     )
 }
 

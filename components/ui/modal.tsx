@@ -4,6 +4,7 @@ import {
     DialogContent,
 } from "@/components/ui/dialog"
 import { X } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 interface ModalProps {
     isOpen?: boolean
@@ -12,12 +13,19 @@ interface ModalProps {
     footer?: ReactElement
     step?: number
     totalSteps?: number
+    isEditing?: boolean
 }
 
-export default function Modal({ body, footer, isOpen, onCLose, step, totalSteps }: ModalProps) {
+export default function Modal({ body, footer, isOpen, onCLose, step, totalSteps, isEditing }: ModalProps) {
     return (
         <Dialog open={isOpen} onOpenChange={onCLose}>
-            <DialogContent className='bg-black'>
+            <DialogContent
+                className={cn(
+                    "bg-black p-1",
+                    isEditing && "h-[80vh] overflow-x-hidden overflow-y-auto"
+                )}
+
+            >
                 <div className="flex items-center gap-6">
                     <button className="p-1 border-0 text-white hover:opacity-70 transition w-fit">
                         <X size={28} onClick={onCLose} />
