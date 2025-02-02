@@ -1,5 +1,7 @@
 import Comment from '@/database/comment.model'
+import Notification from '@/database/notification.model'
 import Post from '@/database/post.model'
+import User from '@/database/user.model'
 import { authOptions } from '@/lib/auth-options'
 import { connectToDatabse } from '@/lib/mongoose'
 import { getServerSession } from 'next-auth'
@@ -10,9 +12,19 @@ export async function POST(req: Request) {
 		await connectToDatabse()
 		const { body, postId, userId } = await req.json()
 		const comment = await Comment.create({ body, post: postId, user: userId })
-		await Post.findByIdAndUpdate(postId, {
+		const post = await Post.findByIdAndUpdate(postId, {
 			$push: { comments: comment._id }
 		})
+
+		await Notification.create({
+			user: String(post.user),
+			body: "Someona replied on your post"
+		})
+
+		await User.findByIdAndUpdate(
+			{_id: String(post.user)},
+			{$set: {hasNewNotifications: true}}
+		)
 
 		return NextResponse.json(comment)
 	} catch (error) {

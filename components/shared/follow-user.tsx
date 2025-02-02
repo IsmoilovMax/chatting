@@ -74,15 +74,20 @@ const FollowUser = ({ setFollowing, user }: Props) => {
         }
     }
 
+    const goToProfile = (e: any) => {
+        e.stopPropagation()
+        router.push(`/profile/${user._id}`)
+    }
+
     return (
         <div className="flex gap-3 items-center justify-between cursor-pointer hover: bg-slate-300 hover:bg-opacity-10 transition py-2 px-3 rounded-t-md">
             <div className="flex gap-2 cursor-pointer">
-                <Avatar>
+                <Avatar onClick={goToProfile}>
                     <AvatarImage src={profile?.profileImage} />
                     <AvatarFallback>{profile.name[0]}</AvatarFallback>
                 </Avatar>
 
-                <div className="flex flex-col">
+                <div className="flex flex-col" onClick={goToProfile}>
                     <p className="text-white font-semibold text-sm line-clamp-1">
                         {profile.name}
                     </p>

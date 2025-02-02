@@ -1,5 +1,5 @@
 import Auth from '@/components/auth'
-import FollowBar from '@/components/shared/followebar'
+import FollowBar from '@/components/shared/follow-bar'
 import Sidebar from '@/components/sidebar/sidebar'
 import { Toaster } from "@/components/ui/toaster"
 import { authOptions } from '@/lib/auth-options'

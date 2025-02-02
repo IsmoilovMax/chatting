@@ -8,6 +8,7 @@ import { sliceText } from "@/lib/utils";
 import { formatDistanceToNowStrict } from "date-fns";
 import { FaHeart } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
+import { useRouter } from "next/navigation";
 
 
 interface Props {
@@ -21,6 +22,8 @@ interface Props {
 
 const CommentItem = ({ comment, comments, setComments, user }: Props) => {
     const [isLoading, setIsLLoading] = useState(false)
+
+    const router = useRouter()
 
     const onLike = async () => {
         try {
@@ -75,6 +78,11 @@ const CommentItem = ({ comment, comments, setComments, user }: Props) => {
         }
     }
 
+    const goToProfile = (evt: any) => {
+        evt.stopPropagaion()
+        router.push(`/profile/${user._id}`)
+    }
+
     return (<div className="border-b-[1px] relative border-neutral-800 p-5 cursor-pointer hover:bg-neutral-900 transition">
         {isLoading && (
             <div className="absolute inset-0 w-full h-full bg-black opacity-50">
@@ -85,13 +93,13 @@ const CommentItem = ({ comment, comments, setComments, user }: Props) => {
         )}
         <div className="flex flex-row items-center gap-3">
             <div>
-            <Avatar>
-                <AvatarImage src={comment?.user.profileImage} style={{borderRadius: "50%", width: "55px"}} />
-                <AvatarFallback>{comment?.user.name[0]}</AvatarFallback>
-            </Avatar>
+                <Avatar onClick={goToProfile}>
+                    <AvatarImage src={comment?.user.profileImage} style={{ borderRadius: "50%", width: "55px" }} />
+                    <AvatarFallback>{comment?.user.name[0]}</AvatarFallback>
+                </Avatar>
             </div>
             <div>
-                <div className="flex flex-row items-center gap-2">
+                <div className="flex flex-row items-center gap-2" onClick={goToProfile}>
                     <p className="text-white font-semibold cursor-pointer hover:underline">
                         {comment?.user.name}
                     </p>

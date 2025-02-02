@@ -15,8 +15,8 @@ const FollowBar = () => {
 
     return (
         <div className='py-4 hidden lg:block w-[260px]'>
-            <div className='bg-neutral-800 rounded-xl p-4'>
-                <div className='flex items-center justify-between'>
+            <div className='bg-neutral-800 rounded-xl'>
+                <div className='flex items-center justify-between px-4 pt-4'>
                     <h2 className='text-xl font-semibold'>Who to follow</h2>
                     <Button
                         secondary
@@ -30,7 +30,7 @@ const FollowBar = () => {
                         <Loader2 className='animate-spin text-sky-500' />
                     </div>
                 ) : (
-                    <div className='flex flex-col gap-6 mt-4'>
+                    <div className='flex flex-col mt-4'>
                         {users && users?.map((user: IUser) => (
                             <Link key={user?._id} href={'/profile/${user._id}'}>
                                 <User key={user._id} user={user} />
