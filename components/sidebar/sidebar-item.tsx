@@ -1,10 +1,13 @@
 import { LucideIcon } from 'lucide-react'
 import React from 'react'
 import { BsDot } from 'react-icons/bs'
+import { IconType } from 'react-icons';
+
+type IconComponent = LucideIcon | IconType;
 
 interface Props {
     label: string
-    icon: LucideIcon
+    icon: IconComponent
     notification?: boolean
 }
 
