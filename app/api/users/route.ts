@@ -8,8 +8,10 @@ export async function GET(req: Request) {
 		const { searchParams } = new URL(req.url)
 		const limit = searchParams.get('limit')
 
-		const users = await User.find({}).select('name username _id profileImage email').limit(Number(limit))
-
+		const users = await User.find({})
+			.select('name username _id profileImage email')
+			.limit(Number(limit))
+			.sort({ createdAt: -1 })
 		return NextResponse.json(users)
 	} catch (error) {
 		const result = error as Error

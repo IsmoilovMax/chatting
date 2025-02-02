@@ -4,7 +4,7 @@ import Auth from '@/components/auth'
 import Form from '@/components/shared/form'
 import Header from '@/components/shared/header'
 import PostItem from '@/components/shared/post-item'
-import { IPost} from '@/types'
+import { IPost } from '@/types'
 import axios from 'axios'
 import { Loader2 } from 'lucide-react'
 import { useSession } from 'next-auth/react'
@@ -15,18 +15,19 @@ const Page = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [posts, setPosts] = useState<IPost[]>([])
 
-    useEffect(() => {
-        const getPosts = async () => {
-            try {
-                setIsLoading(true)
-                const { data } = await axios.get("/api/posts?limit=10")
-                setPosts(data)
-                setIsLoading(false)
-            } catch (error) {
-                console.log(error)
-                setIsLoading(false)
-            }
+    const getPosts = async () => {
+        try {
+            setIsLoading(true)
+            const { data } = await axios.get("/api/posts?limit=20")
+            setPosts(data)
+            setIsLoading(false)
+        } catch (error) {
+            console.log(error)
+            setIsLoading(false)
         }
+    }
+
+    useEffect(() => {
         getPosts()
     }, [])
 
@@ -45,7 +46,7 @@ const Page = () => {
                         user={JSON.parse(JSON.stringify(session?.currentUser))}
                         setPosts={setPosts}
                     />
-                    {posts.map((post)=>(
+                    {posts.map((post) => (
                         <PostItem
                             key={post._id}
                             post={post}
