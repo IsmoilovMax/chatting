@@ -80,7 +80,7 @@ const FollowUser = ({ setFollowing, user }: Props) => {
     }
 
     return (
-        <div className="flex gap-3 items-center justify-between cursor-pointer hover: bg-slate-300 hover:bg-opacity-10 transition py-2 px-3 rounded-t-md">
+        <div className="flex gap-3 items-center justify-between cursor-pointer hover:bg-slate-300 hover:bg-opacity-10 transition py-2 px-3 rounded-t-md">
             <div className="flex gap-2 cursor-pointer">
                 <Avatar onClick={goToProfile}>
                     <AvatarImage src={profile?.profileImage} />

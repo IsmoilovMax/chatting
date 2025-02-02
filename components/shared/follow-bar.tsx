@@ -10,7 +10,7 @@ import Link from 'next/link'
 
 const FollowBar = () => {
     const { isLoading, users } = useUsers(5)
-    console.log("users", users)
+    console.log("usersall", users)
 
 
     return (
@@ -34,7 +34,7 @@ const FollowBar = () => {
                 ) : (
                     <div className='flex flex-col mt-4'>
                         {users && users?.map((user: IUser) => (
-                            <Link key={user?._id} href={'/profile/${user._id}'}>
+                            <Link key={user?._id} href={`/profile/${user._id}`}>
                                 <User key={user._id} user={user} />
                             </Link>
                         ))}

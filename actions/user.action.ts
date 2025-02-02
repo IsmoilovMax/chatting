@@ -1,9 +1,10 @@
 'use server'
 
 import User from '@/database/user.model'
-import { connectToDatabse } from '../mongoose'
 import { getServerSession } from 'next-auth'
-import { authOptions } from '../auth-options'
+import { authOptions } from '../lib/auth-options'
+import { connectToDatabse } from '../lib/mongoose'
+
 
 export async function getUserById(userId: string) {
 	try {
