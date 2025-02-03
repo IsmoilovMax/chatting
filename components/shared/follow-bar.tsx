@@ -10,7 +10,7 @@ import Link from 'next/link'
 
 const FollowBar = () => {
     const { isLoading, users } = useUsers(5)
-    console.log("usersall", users)
+
 
 
     return (
